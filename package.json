@@ -1,0 +1,37 @@
+{
+  "name": "webpack-proxy-starter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "start": "webpack-dev-server --mode development --inline --hot --color"
+  },
+  "keywords": ["webpack", "wordpress", "proxy", "scss", "css", "hot-reloading"],
+  "author": "Logan Call @ SeaMonster Studios",
+  "license": "MIT",
+  "dependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.7.0",
+    "clean-webpack-plugin": "^0.1.19",
+    "css-loader": "^0.28.11",
+    "dotenv": "^5.0.1",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "file-loader": "^1.1.11",
+    "font-awesome": "^4.7.0",
+    "image-webpack-loader": "^4.2.0",
+    "node-sass": "^4.9.0",
+    "owl.carousel2": "^2.2.1",
+    "postcss-loader": "^2.1.5",
+    "sass-loader": "^7.0.1",
+    "style-loader": "^0.21.0",
+    "webpack": "^4.10.2",
+    "webpack-cli": "^2.1.4",
+    "webpack-dev-server": "^3.1.4"
+  },
+  "devDependencies": {
+    "autoprefixer": "^8.5.2",
+    "cssnano": "^3.10.0"
+  }
+}
