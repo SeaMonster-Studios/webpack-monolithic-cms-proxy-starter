@@ -6,9 +6,11 @@ This was created to handle asset bundling for websites with a monolithic CMS, su
 
 * Webpack 4
 * Hot Reloading
-* Modern JS
-* ES Modules
+* Babel
+* Flow
+* Eslint
 * Scss, CSS
+* Webpack Dev Server + BrowserSync
 
 ## Setup (WordPress)
 
