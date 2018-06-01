@@ -12,9 +12,12 @@ This was created to handle asset bundling for websites with a monolithic CMS, su
 
 ## Setup (WordPress)
 
-1.  Copy all files in the repo to the _wp-content/_ directory of your WordPress install, except for the _wp-config.php_, and _wp-webpack-scripts.php_ files.
-2.  Copy the contents of _wp-config.php_ into your existng _wp-config.php_
-3.  Copy the _wp-webpack-scripts.php_ into your theme and include it within your _functions.php_ file.
+1.  Copy all files in the repo to the _wp-content/_ directory of your WordPress install, except for the _wordpress-dependencies_.
+2.  Copy the _wordpress-dependencies/wp-webpack-scripts.php_ into your theme and include it within your _functions.php_ file.
+3.  Zip and upload the _wordpress-dependencies/make-paths-relative_ plugin into wordpress, and activate it. Then go to the plugin's settings and check all the boxes to make everything relative paths, save your changes.
+
+* I'd love to find a way around needing to use this, but this is a solution that works. If you don't want this plugin on your site, then just don't activate it in production.
+
 4.  Rename the _.env.example_ file to _.env_
 
 * Add your _PROXY_URL_, example: `http://my-awesome-wp-blog.lndo.site`
@@ -25,7 +28,7 @@ This was created to handle asset bundling for websites with a monolithic CMS, su
 
 ## Terminal Commands
 
-1.`npm start` will run the webpack dev server and proxy the local install of your WordPress site.
+1.  `npm start` will run the webpack dev server and proxy the local install of your WordPress site.
 
 2.  `npm run build` will create the production build of your assets.
 
