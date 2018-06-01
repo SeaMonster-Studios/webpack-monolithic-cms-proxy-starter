@@ -1,6 +1,6 @@
 {
-  "name": "webpack-monolithic-backend-proxy-starter",
-  "version": "2.2.1",
+  "name": "webpack-monolithic-cms-proxy-starter",
+  "version": "2.2.2",
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
