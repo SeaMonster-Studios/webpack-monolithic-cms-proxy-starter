@@ -1,28 +1,20 @@
 const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 const dotenv = require('dotenv')
 const webpack = require('webpack')
 
 dotenv.config()
 
-const isHTTPS = process.env.PROXY_URL.includes('https')
-const host = process.env.HOST || 'localhost'
-const port = process.env.PORT || 9100
-const publicPath =
-  (isHTTPS ? 'https' : 'http') +
-  '://' +
-  host +
-  ':' +
-  port +
-  process.env.PUBLIC_PATH
+const browserSyncPort = process.env.PORT || 3500
+const webpackPort = 9500
 
 const commonConfig = {
   entry: { main: './src/index.js' },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'main.js',
-    publicPath,
   },
   module: {
     rules: [
@@ -62,13 +54,12 @@ const commonConfig = {
       },
     ],
   },
-  plugins: [new CleanWebpackPlugin(['dist'])],
+  plugins: [],
 }
 
 const envConfig = (mode, common) =>
   mode !== 'development'
     ? {
-        devtool: 'inline-source-map',
         module: {
           rules: [
             ...common.module.rules,
@@ -83,6 +74,7 @@ const envConfig = (mode, common) =>
         },
         plugins: [
           ...common.plugins,
+          new CleanWebpackPlugin(['dist']),
           new ExtractTextPlugin({
             filename: 'style.css',
             disable: false,
@@ -91,14 +83,16 @@ const envConfig = (mode, common) =>
         ],
       }
     : {
+        output: {
+          ...common.output,
+          publicPath: process.env.PUBLIC_PATH,
+        },
+        devtool: 'inline-source-map',
         devServer: {
           compress: false,
-          port,
-          hotOnly: true,
+          port: webpackPort,
           hot: true,
-          publicPath,
-          contentBase: './dist',
-          historyApiFallback: true,
+          publicPath: process.env.PUBLIC_PATH,
           overlay: {
             errors: true,
             warnings: false,
@@ -127,7 +121,30 @@ const envConfig = (mode, common) =>
             },
           ],
         },
-        plugins: [...common.plugins, new webpack.NamedModulesPlugin()],
+        plugins: [
+          ...common.plugins,
+          new webpack.NamedModulesPlugin(),
+          new BrowserSyncPlugin(
+            {
+              host: 'localhost',
+              port: browserSyncPort,
+              proxy: `http://localhost:${webpackPort}`,
+              rewriteRules: [
+                {
+                  match: new RegExp(process.env.PROXY_URL, 'g'),
+                  fn: (req, res, match) =>
+                    `http://localhost:${browserSyncPort}`,
+                },
+              ],
+              open: false,
+            },
+            {
+              // prevent BrowserSync from reloading the page
+              // and let Webpack Dev Server take care of this
+              reload: false,
+            },
+          ),
+        ],
       }
 
 module.exports = (env, argv) => ({
