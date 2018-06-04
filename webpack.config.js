@@ -137,6 +137,19 @@ const envConfig = (mode, common) =>
                 },
               ],
               open: false,
+              files: [
+                {
+                  match: ['**/*.php'],
+                  fn: function(event, file) {
+                    if (event === 'change') {
+                      const bs = require('browser-sync').get(
+                        'bs-webpack-plugin',
+                      )
+                      bs.reload()
+                    }
+                  },
+                },
+              ],
             },
             {
               // prevent BrowserSync from reloading the page

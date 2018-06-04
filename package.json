@@ -1,13 +1,20 @@
 {
   "name": "webpack-monolithic-cms-proxy-starter",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
     "build": "webpack --mode production",
     "start": "webpack-dev-server --mode development --inline --hot --color"
   },
-  "keywords": ["webpack", "wordpress", "proxy", "scss", "css", "hot-reloading"],
+  "keywords": [
+    "webpack",
+    "wordpress",
+    "proxy",
+    "scss",
+    "css",
+    "hot-reloading"
+  ],
   "author": "Logan Call @ SeaMonster Studios",
   "license": "MIT",
   "dependencies": {
